@@ -7,9 +7,12 @@ package com.smartcampus.resource;
 import com.smartcampus.model.Room;
 
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 import java.util.Collection;
 import java.util.Map;
@@ -28,5 +31,21 @@ public class RoomResource {
     @GET
     public Collection<Room> getRooms() {
         return rooms.values();
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createRoom(Room room) {
+        if (room.getId() == null || room.getId().isEmpty()) {
+            return Response.status(400).entity("Room ID is required").build();
+        }
+        
+        if (rooms.containsKey(room.getId())) {
+            return Response.status(409).entity("Room already exists").build();
+        }
+        
+        rooms.put(room.getId(), room);
+        
+        return Response.status(201).entity(room).build();
     }
 }
