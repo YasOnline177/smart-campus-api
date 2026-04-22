@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class SensorResource {
-    private static Map<String, Sensor> sensors = new ConcurrentHashMap<>();
+    public static Map<String, Sensor> sensors = new ConcurrentHashMap<>();
     
     @POST
     public Response createSensor(Sensor sensor) {
@@ -47,5 +47,10 @@ public class SensorResource {
         
         // Filter by type
         return sensors.values().stream().filter(sensor -> sensor.getType().equalsIgnoreCase(type)).toList();
+    }
+    
+    @Path("/{id}/readings")
+    public SensorReadingResource getReadingResource(@PathParam("id") String id) {
+        return new SensorReadingResource(id);
     }
 }
