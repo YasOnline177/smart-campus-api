@@ -4,14 +4,22 @@
  */
 package com.smartcampus.config;
 
+import com.smartcampus.filter.LoggingRequestFilter;
+import com.smartcampus.filter.LoggingResponseFilter;
+
 import jakarta.ws.rs.ApplicationPath;
-import jakarta.ws.rs.core.Application;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  *
  * @author yasara
  */
 @ApplicationPath("/api/v1")
-public class AppConfig extends Application {
-    
+public class AppConfig extends ResourceConfig {
+    public AppConfig() {
+        packages("com.smartcampus");
+        
+        register(LoggingRequestFilter.class);
+        register(LoggingResponseFilter.class);
+    }
 }
