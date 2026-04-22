@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Produces(MediaType.APPLICATION_JSON)
 public class RoomResource {
 
-    private static Map<String, Room> rooms = new ConcurrentHashMap<>();
+    public static Map<String, Room> rooms = new ConcurrentHashMap<>();
 
     @GET
     public Collection<Room> getRooms() {
