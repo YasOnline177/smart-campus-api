@@ -37,4 +37,15 @@ public class SensorResource {
         
         return Response.status(201).entity(sensor).build();
     }
+    
+    @GET 
+    public Collection<Sensor> getSensors(@QueryParam("type") String type) {
+        // No filter
+        if (type == null) {
+            return sensors.values();
+        }
+        
+        // Filter by type
+        return sensors.values().stream().filter(sensor -> sensor.getType().equalsIgnoreCase(type)).toList();
+    }
 }

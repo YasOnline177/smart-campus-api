@@ -24,3 +24,4 @@ hs_err_pid*
 replay_pid*
 /smart-campus-api/target/
 .DS_Store
+/SmartCampusAPI/target/
