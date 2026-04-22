@@ -5,9 +5,11 @@
 package com.smartcampus.resource;
 
 import com.smartcampus.model.Room;
+import com.smartcampus.exception.RoomNotEmptyException;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.Consumes;
@@ -60,5 +62,23 @@ public class RoomResource {
         }
 
         return Response.ok(room).build();
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    public Response deleteRoom(@PathParam("id") String id) {
+        Room room = rooms.get(id);
+        
+        if (room == null) {
+            return Response.status(404).entity("Room not found").build();
+        }
+        
+        if (!room.getSensorIds().isEmpty()) {
+            throw new RoomNotEmptyException("Room has sensors");
+        }
+        
+        rooms.remove(id);
+        
+        return Response.ok().build();
     }
 }
