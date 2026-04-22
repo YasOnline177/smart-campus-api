@@ -6,6 +6,7 @@ package com.smartcampus.resource;
 
 import com.smartcampus.model.Room;
 import com.smartcampus.model.Sensor;
+import com.smartcampus.exception.LinkedResourceNotFoundException;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -29,7 +30,7 @@ public class SensorResource {
         Room room = RoomResource.rooms.get(sensor.getRoomId());
         
         if (room == null) {
-            throw new RuntimeException("Room does not exist");
+            throw new LinkedResourceNotFoundException("Room does not exist");
         }
         
         sensors.put(sensor.getId(), sensor);

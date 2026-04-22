@@ -6,6 +6,8 @@ package com.smartcampus.resource;
 
 import com.smartcampus.model.Sensor;
 import com.smartcampus.model.SensorReading;
+import com.smartcampus.exception.LinkedResourceNotFoundException;
+import com.smartcampus.exception.SensorUnavailableException;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -36,15 +38,21 @@ public class SensorReadingResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addReading(SensorReading reading) {
-        readings.putIfAbsent(sensorId, new ArrayList<>());
-        readings.get(sensorId).add(reading);
-        
-        // Update sensor current value
         Sensor sensor = SensorResource.sensors.get(sensorId);
         
-        if (sensor != null) {
-            sensor.setCurrentValue(reading.getValue());
+        // Check if the sensor exists
+        if (sensor == null) {
+            throw new LinkedResourceNotFoundException("Sensor not found");
         }
+        
+        // Check if the sensor is active
+        if (!sensor.getStatus().equalsIgnoreCase("ACTIVE")) {
+            throw new SensorUnavailableException("Sensor is not active");
+        }
+        
+        // Store reading
+        readings.putIfAbsent(sensorId, new ArrayList<>());
+        readings.get(sensorId).add(reading);
         
         return Response.status(201).entity(reading).build();
     } 
