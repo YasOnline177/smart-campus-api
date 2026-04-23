@@ -19,6 +19,7 @@ public class AppConfig extends ResourceConfig {
     public AppConfig() {
         packages("com.smartcampus");
         
+        // Logging filters
         register(LoggingRequestFilter.class);
         register(LoggingResponseFilter.class);
     }
