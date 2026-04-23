@@ -42,9 +42,7 @@ curl http://localhost:8080/SmartCampusAPI/api/v1
 ### 2. Create a Room
 
 ```
-curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/rooms \ 
--H "Content-Type: application/json" \ 
--d '{"id":"R1","name":"Lab A","capacity":30}'
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/rooms -H "Content-Type: application/json" -d '{"id":"R1","name":"Lab A","capacity":30}'
 ```
 
 ---
@@ -58,9 +56,7 @@ curl http://localhost:8080/SmartCampusAPI/api/v1/rooms
 ### 4. Create a Sensor
 
 ```
-curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
--H "Content-Type: application/json" \
--d '{"id":"S1","type":"CO2","status":"ACTIVE","currentValue":0.0,"roomId":"R1"}'
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors -H "Content-Type: application/json" -d '{"id":"S1","type":"CO2","status":"ACTIVE","currentValue":0.0,"roomId":"R1"}'
 ```
 
 ---
@@ -74,9 +70,7 @@ curl "http://localhost:8080/SmartCampusAPI/api/v1/sensors?type=CO2"
 ### 6. Add Sensor Reading
 
 ```
-curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/readings \
--H "Content-Type: application/json" \
--d '{"id":"R1","value":450.5,"timestamp":1710000000}'
+curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/readings -H "Content-Type: application/json" -d '{"id":"R1","value":450.5,"timestamp":1710000000}'
 ```
 
 ---
