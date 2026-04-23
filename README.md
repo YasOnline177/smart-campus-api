@@ -80,6 +80,7 @@ curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/readings \
 ```
 
 ---
+
 ## Report Questions
 
 ### Question 1: JAX-RS Resource Lifecycle
